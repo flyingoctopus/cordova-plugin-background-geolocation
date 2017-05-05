@@ -111,7 +111,7 @@ enum {
     if (provider != nil) [dict setObject:provider forKey:@"provider"];
     if (serviceProvider != nil) [dict setObject:serviceProvider forKey:@"service_provider"];
     if (type != nil) [dict setObject:type forKey:@"location_type"];
-    if (type != nil) [dict setObject:uniqueId forKey:@"unique_id"];
+    if (type != nil) [dict setObject:uniqueId forKey:@"uniqueId"];
 
     return dict;
 }
