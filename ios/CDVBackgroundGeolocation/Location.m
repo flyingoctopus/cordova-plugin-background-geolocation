@@ -99,6 +99,9 @@ enum {
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:11];
     
+    UIDevice *device = [UIDevice currentDevice];
+    NSString *uniqueId = [[device identifierForVendor] UUIDString];
+    
     if (time != nil) [dict setObject:[NSNumber numberWithDouble:([time timeIntervalSince1970] * 1000)] forKey:@"time"];
     if (accuracy != nil) [dict setObject:accuracy forKey:@"accuracy"];
     if (altitudeAccuracy != nil) [dict setObject:altitudeAccuracy forKey:@"altitudeAccuracy"];
