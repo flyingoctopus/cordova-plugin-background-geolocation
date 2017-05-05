@@ -9,6 +9,7 @@
 #define Location_h
 
 #import <CoreLocation/CoreLocation.h>
+#import <UIKit/UIKit.h>
 
 @interface Location : NSObject <NSCopying>
 
@@ -24,7 +25,12 @@
 @property (nonatomic, retain) NSString *provider;
 @property (nonatomic, retain) NSNumber *serviceProvider;
 @property (nonatomic, retain) NSString *type;
+@property (nonatomic, retain) NSString *uniqueId;
 @property (nonatomic) BOOL isValid;
+
+@property (nonatomic, retain ) UIDevice *device;
+@property (nonatomic, retain) NSString *uniqueIdentifier;
+
 
 + (instancetype) fromCLLocation:(CLLocation*)location;
 + (NSTimeInterval) locationAge:(CLLocation*)location;

@@ -15,7 +15,7 @@ enum {
 
 @implementation Location
 
-@synthesize id, time, accuracy, altitudeAccuracy, speed, heading, altitude, latitude, longitude, provider, serviceProvider, type, isValid;
+@synthesize id, time, accuracy, altitudeAccuracy, speed, heading, altitude, latitude, longitude, provider, serviceProvider, type, isValid, uniqueId;
 
 + (instancetype) fromCLLocation:(CLLocation*)location;
 {
@@ -29,6 +29,7 @@ enum {
     instance.altitude = [NSNumber numberWithDouble:location.altitude];
     instance.latitude = [NSNumber numberWithDouble:location.coordinate.latitude];
     instance.longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+//    instance.uniqueId = location.uniqueId;
     
     return instance;
 }
@@ -40,7 +41,10 @@ enum {
 
 + (NSMutableDictionary*) toDictionary:(CLLocation*)location;
 {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:10];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:11];
+    
+    UIDevice *device = [UIDevice currentDevice];
+    NSString *uniqueId = [[device identifierForVendor] UUIDString];
     
     NSNumber* timestamp = [NSNumber numberWithDouble:([location.timestamp timeIntervalSince1970] * 1000)];
     [dict setObject:timestamp forKey:@"time"];
@@ -52,6 +56,7 @@ enum {
     [dict setObject:[NSNumber numberWithDouble:location.altitude] forKey:@"altitude"];
     [dict setObject:[NSNumber numberWithDouble:location.coordinate.latitude] forKey:@"latitude"];
     [dict setObject:[NSNumber numberWithDouble:location.coordinate.longitude] forKey:@"longitude"];
+    [dict setObject:uniqueId forKey:@"uniqueId"];
     
     return dict;
 }
@@ -92,7 +97,7 @@ enum {
 
 - (NSMutableDictionary*) toDictionary
 {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:10];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:11];
     
     if (time != nil) [dict setObject:[NSNumber numberWithDouble:([time timeIntervalSince1970] * 1000)] forKey:@"time"];
     if (accuracy != nil) [dict setObject:accuracy forKey:@"accuracy"];
@@ -106,7 +111,8 @@ enum {
     if (provider != nil) [dict setObject:provider forKey:@"provider"];
     if (serviceProvider != nil) [dict setObject:serviceProvider forKey:@"service_provider"];
     if (type != nil) [dict setObject:type forKey:@"location_type"];
-    
+    if (type != nil) [dict setObject:uniqueId forKey:@"unique_id"];
+
     return dict;
 }
 
@@ -201,7 +207,7 @@ enum {
 
 - (NSString *) description
 {
-    return [NSString stringWithFormat:@"Location: id=%ld time=%ld lat=%@ lon=%@ accu=%@ aaccu=%@ speed=%@ bear=%@ alt=%@ type=%@", (long)id, (long)time, latitude, longitude, accuracy, altitudeAccuracy, speed, heading, altitude, type];
+    return [NSString stringWithFormat:@"Location: id=%ld time=%ld lat=%@ lon=%@ accu=%@ aaccu=%@ speed=%@ bear=%@ alt=%@ type=%@ uniqueId=%@", (long)id, (long)time, latitude, longitude, accuracy, altitudeAccuracy, speed, heading, altitude, type, uniqueId];
 }
 
 - (BOOL) postAsJSON:(NSString*)url withHttpHeaders:(NSMutableDictionary*)httpHeaders error:(NSError * __autoreleasing *)outError;
@@ -252,6 +258,7 @@ enum {
         copy.serviceProvider = serviceProvider;
         copy.type = type;
         copy.isValid = isValid;
+        copy.uniqueId = uniqueId;
     }
     
     return copy;
