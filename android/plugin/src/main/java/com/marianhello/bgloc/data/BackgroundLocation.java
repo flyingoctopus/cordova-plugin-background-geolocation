@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.TimeUtils;
+import android.telephony.TelephonyManager;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -15,6 +16,7 @@ public class BackgroundLocation implements Parcelable {
     private Integer locationProvider = null;
     private Long batchStartMillis = null;
     private String provider;
+    private String uniqueId;
     private double latitude = 0.0;
     private double longitude = 0.0;
     private long time = 0;
@@ -52,6 +54,7 @@ public class BackgroundLocation implements Parcelable {
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
         extras = location.getExtras();
+        uniqueId = getUniqueProvider();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             elapsedRealtimeNanos = location.getElapsedRealtimeNanos();
         }
@@ -161,8 +164,8 @@ public class BackgroundLocation implements Parcelable {
         dest.writeInt(hasBearing ? 1 : 0);
         dest.writeInt(hasRadius ? 1 : 0);
         dest.writeInt(isFromMockProvider ? 1 : 0);
-        dest.writeInt(isValid ? 1 : 0);
         dest.writeBundle(extras);
+        dest.writeInt(isValid ? 1 : 0);
     }
 
     public static final Parcelable.Creator<BackgroundLocation> CREATOR
@@ -179,6 +182,10 @@ public class BackgroundLocation implements Parcelable {
         return new BackgroundLocation(this);
     }
 
+    public Long getUniqueId() {
+        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String uuid = tManager.getDeviceId();
+    }
     /**
      * Returns locationId if location was stored in db.
      * @return locationId or null
@@ -715,6 +722,7 @@ public class BackgroundLocation implements Parcelable {
         if (hasBearing) json.put("bearing", bearing);
         if (hasRadius) json.put("radius", radius);
         json.put("locationProvider", locationProvider);
+        json.put("uniqueId", getLocationId());
 
         return json;
   	}

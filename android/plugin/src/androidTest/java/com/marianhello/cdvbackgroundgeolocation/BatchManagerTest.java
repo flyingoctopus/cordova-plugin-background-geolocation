@@ -164,8 +164,8 @@ public class BatchManagerTest {
         BatchManager batchManager = new BatchManager(ctx);
         try {
             batchManager.createBatch(1000L);
-            batchManager.setBatchCompleted(1000L);
-            Assert.assertEquals(0, dao.getValidLocations().size());
+                batchManager.setBatchCompleted(1000L);
+                Assert.assertEquals(0, dao.getValidLocations().size());
             Assert.assertEquals(Long.valueOf(0), dao.locationsForSyncCount(2000L));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
