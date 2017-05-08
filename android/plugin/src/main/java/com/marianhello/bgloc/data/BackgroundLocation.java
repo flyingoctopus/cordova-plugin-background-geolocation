@@ -34,7 +34,9 @@ public class BackgroundLocation implements Parcelable {
     private boolean hasRadius = false;
     private boolean isFromMockProvider = false;
     private boolean isValid = true;
+    private String
     private Bundle extras = null;
+    private String uniqueId = "0";
 
     private static final long TWO_MINUTES_IN_NANOS = 1000000000L * 60 * 2;
 
@@ -54,6 +56,7 @@ public class BackgroundLocation implements Parcelable {
         hasAltitude = location.hasAltitude();
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
+        uniqueId = location.get
         extras = location.getExtras();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -183,9 +186,9 @@ public class BackgroundLocation implements Parcelable {
         return new BackgroundLocation(this);
     }
 
-    public Long getUniqueId() {
-        public String android_id = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
-        return android_id;
+    public String getUniqueId() {
+        private String uniqueId = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
+        return uniqueId;
     }
     /**
      * Returns locationId if location was stored in db.
