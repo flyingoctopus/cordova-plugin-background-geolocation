@@ -184,8 +184,9 @@ public class BackgroundLocation implements Parcelable {
     }
 
     public Long getUniqueId() {
-        private String android_id = Secure.getString(getContext().getContentResolver(),
+        public String android_id = Secure.getString(getContext().getContentResolver(),
                 Secure.ANDROID_ID);
+        return android_id;
     }
     /**
      * Returns locationId if location was stored in db.
