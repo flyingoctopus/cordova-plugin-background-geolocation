@@ -62,8 +62,7 @@ public class SQLiteLocationDAO implements LocationDAO {
       LocationEntry.COLUMN_NAME_HAS_RADIUS,
       LocationEntry.COLUMN_NAME_LOCATION_PROVIDER,
       LocationEntry.COLUMN_NAME_VALID,
-      LocationEntry.COLUMN_NAME_BATCH_START_MILLIS,
-      LocationEntry.COLUMN_NAME_UNQUE_ID
+      LocationEntry.COLUMN_NAME_BATCH_START_MILLIS
     };
 
     String groupBy = null;
@@ -185,7 +184,6 @@ public class SQLiteLocationDAO implements LocationDAO {
             .append(LocationEntry.COLUMN_NAME_HAS_RADIUS).append("= ?,")
             .append(LocationEntry.COLUMN_NAME_LOCATION_PROVIDER).append("= ?,")
             .append(LocationEntry.COLUMN_NAME_BATCH_START_MILLIS).append("= ?,")
-            .append(LocationEntry.COLUMN_NAME_UNIQUE_ID).append("= ?,")
             .append(LocationEntry.COLUMN_NAME_VALID).append("= ?")
             .append(" WHERE ").append(LocationEntry.COLUMN_NAME_TIME)
             .append("= (SELECT min(").append(LocationEntry.COLUMN_NAME_TIME).append(") FROM ")

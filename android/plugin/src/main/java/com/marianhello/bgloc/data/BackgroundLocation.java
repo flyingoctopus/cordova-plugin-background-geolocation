@@ -722,7 +722,7 @@ public class BackgroundLocation implements Parcelable {
         if (hasBearing) json.put("bearing", bearing);
         if (hasRadius) json.put("radius", radius);
         json.put("locationProvider", locationProvider);
-        json.put("uniqueId", getLocationId());
+        json.put("uniqueId", getUniqueId());
 
         return json;
   	}
