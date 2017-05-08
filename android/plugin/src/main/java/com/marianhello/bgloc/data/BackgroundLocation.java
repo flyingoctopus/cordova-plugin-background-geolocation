@@ -54,7 +54,7 @@ public class BackgroundLocation implements Parcelable {
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
         extras = location.getExtras();
-        uniqueId = getUniqueProvider();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             elapsedRealtimeNanos = location.getElapsedRealtimeNanos();
         }
@@ -183,7 +183,7 @@ public class BackgroundLocation implements Parcelable {
     }
 
     public Long getUniqueId() {
-        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String uuid = tManager.getDeviceId();
     }
     /**
