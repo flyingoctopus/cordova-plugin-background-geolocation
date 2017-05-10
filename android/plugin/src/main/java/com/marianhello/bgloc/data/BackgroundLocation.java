@@ -56,7 +56,7 @@ public class BackgroundLocation implements Parcelable {
         hasAltitude = location.hasAltitude();
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
-        uniqueId = location.get
+        uniqueId = location.getUniqueId();
         extras = location.getExtras();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
