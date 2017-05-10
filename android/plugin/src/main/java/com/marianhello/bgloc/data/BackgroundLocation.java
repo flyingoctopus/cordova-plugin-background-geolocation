@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.TimeUtils;
 import android.provider.Settings.Secure;
+import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import org.json.JSONObject;
@@ -188,7 +189,16 @@ public class BackgroundLocation implements Parcelable {
 
     public String getUniqueId() {
         public String uniqueId = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
-        return uniqueId;
+        final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+        final String tmDevice, tmSerial, androidId;
+        tmDevice = "" + tm.getDeviceId();
+        tmSerial = "" + tm.getSimSerialNumber();
+        androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+
+        UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+        String deviceId = deviceUuid.toString();
+        return deviceId;
     }
     /**
      * Returns locationId if location was stored in db.
