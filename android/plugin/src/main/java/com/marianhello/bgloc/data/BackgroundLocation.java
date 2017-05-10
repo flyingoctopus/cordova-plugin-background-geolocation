@@ -18,7 +18,6 @@ public class BackgroundLocation implements Parcelable {
     private Integer locationProvider = null;
     private Long batchStartMillis = null;
     private String provider;
-    private String uniqueId;
     private double latitude = 0.0;
     private double longitude = 0.0;
     private long time = 0;
@@ -56,7 +55,7 @@ public class BackgroundLocation implements Parcelable {
         hasAltitude = location.hasAltitude();
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
-        uniqueId = location.getUniqueId();
+//        uniqueId = location.getUniqueId();
         extras = location.getExtras();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -197,7 +196,10 @@ public class BackgroundLocation implements Parcelable {
 
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
         String deviceId = deviceUuid.toString();
-        return deviceId;
+        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        uniqueId = tManager.getDeviceId();
+        return uniqueId;
+//        return deviceId;
     }
     /**
      * Returns locationId if location was stored in db.
