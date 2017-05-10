@@ -109,7 +109,6 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin {
      */
     class IncomingHandler extends Handler {
         @Override
-        Context context = getActivity().getApplicationContext();
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case LocationService.MSG_LOCATION_UPDATE:
