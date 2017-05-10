@@ -35,7 +35,6 @@ public class BackgroundLocation implements Parcelable {
     private boolean hasRadius = false;
     private boolean isFromMockProvider = false;
     private boolean isValid = true;
-    private String
     private Bundle extras = null;
     private String uniqueId = "0";
 
@@ -188,7 +187,7 @@ public class BackgroundLocation implements Parcelable {
     }
 
     public String getUniqueId() {
-        public String uniqueId = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
+        //final String uniqueId = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
         final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
 
         final String tmDevice, tmSerial, androidId;
