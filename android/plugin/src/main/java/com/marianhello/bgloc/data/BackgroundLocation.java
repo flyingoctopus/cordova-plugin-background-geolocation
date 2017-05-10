@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.TimeUtils;
+
 import android.content.Context;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -55,7 +56,7 @@ public class BackgroundLocation implements Parcelable {
         hasAltitude = location.hasAltitude();
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
-//        uniqueId = location.getUniqueId();
+        uniqueId = getUniqueId();
         extras = location.getExtras();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -737,7 +738,7 @@ public class BackgroundLocation implements Parcelable {
         if (hasBearing) json.put("bearing", bearing);
         if (hasRadius) json.put("radius", radius);
         json.put("locationProvider", locationProvider);
-        json.put("uniqueId", getUniqueId());
+//        json.put("unique_id", uniqueId);
 
         return json;
   	}
