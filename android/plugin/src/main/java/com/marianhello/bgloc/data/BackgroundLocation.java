@@ -7,10 +7,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.TimeUtils;
 
-import android.content.Context;
-import android.provider.Settings.Secure;
-import android.telephony.TelephonyManager;
-
 import org.json.JSONObject;
 import org.json.JSONException;
 
@@ -36,7 +32,6 @@ public class BackgroundLocation implements Parcelable {
     private boolean isFromMockProvider = false;
     private boolean isValid = true;
     private Bundle extras = null;
-    private String uniqueId = "0";
 
     private static final long TWO_MINUTES_IN_NANOS = 1000000000L * 60 * 2;
 
@@ -56,9 +51,7 @@ public class BackgroundLocation implements Parcelable {
         hasAltitude = location.hasAltitude();
         hasSpeed = location.hasSpeed();
         hasBearing = location.hasBearing();
-        uniqueId = getUniqueId();
         extras = location.getExtras();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             elapsedRealtimeNanos = location.getElapsedRealtimeNanos();
         }
@@ -168,8 +161,8 @@ public class BackgroundLocation implements Parcelable {
         dest.writeInt(hasBearing ? 1 : 0);
         dest.writeInt(hasRadius ? 1 : 0);
         dest.writeInt(isFromMockProvider ? 1 : 0);
-        dest.writeBundle(extras);
         dest.writeInt(isValid ? 1 : 0);
+        dest.writeBundle(extras);
     }
 
     public static final Parcelable.Creator<BackgroundLocation> CREATOR
@@ -186,22 +179,6 @@ public class BackgroundLocation implements Parcelable {
         return new BackgroundLocation(this);
     }
 
-    public String getUniqueId() {
-        //final String uniqueId = Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
-//        final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
-//
-//        final String tmDevice, tmSerial, androidId;
-//        tmDevice = "" + tm.getDeviceId();
-//        tmSerial = "" + tm.getSimSerialNumber();
-//        androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-//
-//        UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
-//        String deviceId = deviceUuid.toString();
-//        TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//        uniqueId = tManager.getDeviceId();
-        return uniqueId;
-//        return deviceId;
-    }
     /**
      * Returns locationId if location was stored in db.
      * @return locationId or null
@@ -738,7 +715,6 @@ public class BackgroundLocation implements Parcelable {
         if (hasBearing) json.put("bearing", bearing);
         if (hasRadius) json.put("radius", radius);
         json.put("locationProvider", locationProvider);
-//        json.put("unique_id", uniqueId);
 
         return json;
   	}
