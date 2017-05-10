@@ -118,7 +118,7 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin {
                         Bundle bundle = msg.getData();
                         bundle.setClassLoader(LocationService.class.getClassLoader());
                         JSONObject location = ((BackgroundLocation) bundle.getParcelable("location")).toJSONObject();
-                        location.put("unique_id", Secure.getString(this.getContentResolver(),Secure.ANDROID_ID));
+                        location.put("unique_id", Secure.getString(this.cordova.getActivity().getContentResolver(),Secure.ANDROID_ID));
                         PluginResult result = new PluginResult(PluginResult.Status.OK, location);
                         result.setKeepCallback(true);
                         callbackContext.sendPluginResult(result);
@@ -138,7 +138,7 @@ public class BackgroundGeolocationPlugin extends CordovaPlugin {
                             bundle.setClassLoader(LocationService.class.getClassLoader());
                             stationaryLocation = (BackgroundLocation) bundle.getParcelable("location");
                             JSONObject location = stationaryLocation.toJSONObject();
-                            location.put("unique_id", Secure.getString(this.getContentResolver(),Secure.ANDROID_ID));
+                            location.put("unique_id", Secure.getString(this.cordova.getActivity().getContentResolver(),Secure.ANDROID_ID));
                             result = new PluginResult(PluginResult.Status.OK, location);
                             result.setKeepCallback(true);
                         } catch (JSONException e) {
