@@ -199,7 +199,7 @@ public class BackgroundLocation implements Parcelable {
 //        String deviceId = deviceUuid.toString();
 //        TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 //        uniqueId = tManager.getDeviceId();
-        return uniqueId = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
+        return uniqueId;
 //        return deviceId;
     }
     /**
