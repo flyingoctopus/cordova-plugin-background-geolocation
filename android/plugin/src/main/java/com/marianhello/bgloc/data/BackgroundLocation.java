@@ -10,9 +10,13 @@ import android.support.v4.util.TimeUtils;
 import org.json.JSONObject;
 import org.json.JSONException;
 
-import android.telephony.TelephonyManager;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 
-public class BackgroundLocation implements Parcelable {
+import android.telephony.TelephonyManager;
+import android.content.Context;
+
+public class BackgroundLocation implements Parcelable extends CordovaPlugin {
     private Long locationId = null;
     private Integer locationProvider = null;
     private Long batchStartMillis = null;
