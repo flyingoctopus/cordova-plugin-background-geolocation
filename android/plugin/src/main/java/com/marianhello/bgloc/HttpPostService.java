@@ -61,7 +61,7 @@ public class HttpPostService {
         } else {
             conn.setChunkedStreamingMode(0);
         }
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod("PUT");
         conn.setRequestProperty("Content-Type", "application/json");
         Iterator<Map.Entry<String, String>> it = headers.entrySet().iterator();
         while (it.hasNext()) {
