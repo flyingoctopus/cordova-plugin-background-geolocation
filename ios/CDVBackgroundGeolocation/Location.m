@@ -47,7 +47,7 @@ enum {
     NSString *uniqueId = [[device identifierForVendor] UUIDString];
     
     NSNumber* timestamp = [NSNumber numberWithDouble:([location.timestamp timeIntervalSince1970] * 1000)];
-    [dict setObject:timestamp forKey:@"time"];
+    [dict setObject:timestamp forKey:@".priority"];
     [dict setObject:[NSNumber numberWithDouble:location.horizontalAccuracy] forKey:@"accuracy"];
     [dict setObject:[NSNumber numberWithDouble:location.verticalAccuracy] forKey:@"altitudeAccuracy"];
     [dict setObject:[NSNumber numberWithDouble:location.speed] forKey:@"speed"];
@@ -102,7 +102,7 @@ enum {
     UIDevice *device = [UIDevice currentDevice];
     NSString *uniqueId = [[device identifierForVendor] UUIDString];
     
-    if (time != nil) [dict setObject:[NSNumber numberWithDouble:([time timeIntervalSince1970] * 1000)] forKey:@"time"];
+    if (time != nil) [dict setObject:[NSNumber numberWithDouble:([time timeIntervalSince1970] * 1000)] forKey:@".priority"];
     if (accuracy != nil) [dict setObject:accuracy forKey:@"accuracy"];
     if (altitudeAccuracy != nil) [dict setObject:altitudeAccuracy forKey:@"altitudeAccuracy"];
     if (speed != nil) [dict setObject:speed forKey:@"speed"];
@@ -210,7 +210,7 @@ enum {
 
 - (NSString *) description
 {
-    return [NSString stringWithFormat:@"Location: id=%ld time=%ld lat=%@ lon=%@ accu=%@ aaccu=%@ speed=%@ bear=%@ alt=%@ type=%@ uniqueId=%@", (long)id, (long)time, latitude, longitude, accuracy, altitudeAccuracy, speed, heading, altitude, type, uniqueId];
+    return [NSString stringWithFormat:@"Location: id=%ld .priority=%ld lat=%@ lon=%@ accu=%@ aaccu=%@ speed=%@ bear=%@ alt=%@ type=%@ uniqueId=%@", (long)id, (long)time, latitude, longitude, accuracy, altitudeAccuracy, speed, heading, altitude, type, uniqueId];
 }
 
 - (BOOL) postAsJSON:(NSString*)url withHttpHeaders:(NSMutableDictionary*)httpHeaders error:(NSError * __autoreleasing *)outError;
