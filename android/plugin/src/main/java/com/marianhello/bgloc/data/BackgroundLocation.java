@@ -10,6 +10,8 @@ import android.support.v4.util.TimeUtils;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+import android.telephony.TelephonyManager;
+
 public class BackgroundLocation implements Parcelable {
     private Long locationId = null;
     private Integer locationProvider = null;
@@ -177,6 +179,12 @@ public class BackgroundLocation implements Parcelable {
     
     public BackgroundLocation makeClone() {
         return new BackgroundLocation(this);
+    }
+
+    public String getUniqueId() {
+        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String uuid = tManager.getDeviceId();
+        return uuid;
     }
 
     /**

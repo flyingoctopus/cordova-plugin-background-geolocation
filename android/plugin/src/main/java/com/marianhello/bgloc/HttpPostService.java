@@ -28,7 +28,7 @@ public class HttpPostService {
         HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
         conn.setDoOutput(true);
         conn.setFixedLengthStreamingMode(jsonString.length());
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod("PUT");
         conn.setRequestProperty("Content-Type", "application/json");
         Iterator<Map.Entry<String, String>> it = headers.entrySet().iterator();
         while (it.hasNext()) {
