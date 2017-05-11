@@ -217,7 +217,7 @@ enum {
 {
     NSArray *locations = [[NSArray alloc] initWithObjects:[self toDictionary], nil];
     //    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:locations options:0 error:outError];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:locations[0] options:0 error:outError];
     if (!data) {
         return NO;
     }
@@ -225,7 +225,7 @@ enum {
     NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"PUT"];
     if (httpHeaders != nil) {
         for(id key in httpHeaders) {
             id value = [httpHeaders objectForKey:key];
