@@ -225,7 +225,7 @@ enum {
     NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPMethod:@"PUT"];
+    [request setHTTPMethod:@"POST"];
     if (httpHeaders != nil) {
         for(id key in httpHeaders) {
             id value = [httpHeaders objectForKey:key];

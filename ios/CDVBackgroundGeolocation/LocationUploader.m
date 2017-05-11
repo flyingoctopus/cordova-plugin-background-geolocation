@@ -59,6 +59,7 @@
 {
     SQLiteLocationDAO* locationDAO = [SQLiteLocationDAO sharedInstance];
     NSNumber *locationsCount = [locationDAO getLocationsCount];
+    NSDate *lastLocationTime;
     
     if (locationsCount && [locationsCount integerValue] < threshold) return;
     
@@ -66,7 +67,9 @@
     
     NSMutableArray *jsonArray = [[NSMutableArray alloc] initWithCapacity:[locations count]];
     for (Location *location in locations) {
+        // [jsonArray addObject:[location toDictionary] forKey:location.time];
         [jsonArray addObject:[location toDictionary]];
+        lastLocationTime = location.time;
     }
     
     NSError *error = nil;
@@ -82,7 +85,7 @@
     uint64_t bytesTotalForThisFile = [[[NSFileManager defaultManager] attributesOfItemAtPath:jsonUrl.path error:nil] fileSize];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"PUT"];
+    [request setHTTPMethod:@"POST"];
     [request setValue:[NSString stringWithFormat:@"%llu", bytesTotalForThisFile] forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
