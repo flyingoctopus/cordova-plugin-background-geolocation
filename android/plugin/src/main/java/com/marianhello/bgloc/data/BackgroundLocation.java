@@ -185,11 +185,11 @@ public class BackgroundLocation implements Parcelable {
         return new BackgroundLocation(this);
     }
 
-    public String getUniqueId() {
-        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        String uuid = tManager.getDeviceId();
-        return uuid;
-    }
+//    public String getUniqueId() {
+//        TelephonyManager tManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+//        String uuid = tManager.getDeviceId();
+//        return uuid;
+//    }
 
     /**
      * Returns locationId if location was stored in db.
