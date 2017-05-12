@@ -453,7 +453,7 @@ public class LocationService extends Service {
             int responseCode;
 
             try {
-                responseCode = HttpPostService.postJSON(url, jsonLocations, config.getHttpHeaders());
+                responseCode = HttpPostService.postJSON(url, jsonLocations[0], config.getHttpHeaders());
             } catch (Exception e) {
                 hasConnectivity = isNetworkAvailable();
                 log.warn("Error while posting locations: {}", e.getMessage());
