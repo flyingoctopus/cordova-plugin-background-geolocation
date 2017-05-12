@@ -73,7 +73,7 @@
     }
     
     NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray options:0 error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonArray[0] options:0 error:&error];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
@@ -85,7 +85,7 @@
     uint64_t bytesTotalForThisFile = [[[NSFileManager defaultManager] attributesOfItemAtPath:jsonUrl.path error:nil] fileSize];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"PUT"];
     [request setValue:[NSString stringWithFormat:@"%llu", bytesTotalForThisFile] forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
