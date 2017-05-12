@@ -16,7 +16,7 @@ import org.apache.cordova.PluginResult;
 import android.telephony.TelephonyManager;
 import android.content.Context;
 
-public class BackgroundLocation implements Parcelable extends CordovaPlugin {
+public class BackgroundLocation implements Parcelable {
     private Long locationId = null;
     private Integer locationProvider = null;
     private Long batchStartMillis = null;
