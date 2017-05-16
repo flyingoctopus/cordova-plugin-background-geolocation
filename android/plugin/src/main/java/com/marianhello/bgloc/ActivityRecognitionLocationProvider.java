@@ -149,14 +149,14 @@ public class ActivityRecognitionLocationProvider extends AbstractLocationProvide
         } else if (googleApiClient.isConnected()) {
             if (isWatchingActivity) { return; }
             startTracking();
-//            if (config.getStopOnStillActivity()) {
+            if (config.getStopOnStillActivity()) {
                 ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(
                     googleApiClient,
                     config.getActivitiesInterval(),
                     detectedActivitiesPI
                 );
                 isWatchingActivity = true;
-//            }
+            }
         } else {
             googleApiClient.connect();
         }
